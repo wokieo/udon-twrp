@@ -27,6 +27,23 @@ TARGET_BOOTLOADER_BOARD_NAME := udon
 TARGET_NO_BOOTLOADER := true
 
 # A/B & Virtual A/B
+AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS += \
+    boot \
+    dtbo \
+    init_boot \
+    odm \
+    odm_dlkm \
+    product \
+    system \
+    system_ext \
+    vbmeta \
+    vbmeta_system \
+    vbmeta_vendor \
+    vendor \
+    vendor_boot \
+    vendor_dlkm
+
 ENABLE_VIRTUAL_AB := true
 BOARD_USES_VIRTUAL_AB_RECOVERY := true
 BOARD_USES_DYNAMIC_PARTITIONS := true
@@ -37,6 +54,11 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
+BOARD_KERNEL_IMAGE_NAME := Image
+TARGET_KERNEL_ARCH := arm64
+BOARD_KERNEL_SEPARATED_DTBO := true
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+TARGET_FORCE_PREBUILT_KERNEL := true
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 # Partitions Sizes & Layout
@@ -112,12 +134,12 @@ OF_CLOCK_POS := 1
 OF_HIDE_NOTCH := 1
 OF_USE_GREEN_LED := 0
 OF_FLASHLIGHT_ENABLE := 1
-OF_FL_PATH1 := "/sys/class/leds/led:torch_0"
-OF_FL_PATH2 := "/sys/class/leds/led:torch_1"
-OF_QUICK_BACKUP_LIST := "/boot;/data;/super;"
-FOX_TARGET_DEVICES := "udon,aston,CPH2487,OP5961L1"
+OF_FL_PATH1 := /sys/class/leds/led:torch_0
+OF_FL_PATH2 := /sys/class/leds/led:torch_1
+OF_QUICK_BACKUP_LIST := /boot;/data;/super;
+FOX_TARGET_DEVICES := udon,aston,CPH2487,OP5961L1
 OF_ALLOW_DISABLE_NAVBAR := 0
-OF_MAINTAINER := "The LineageOS Project"
+OF_MAINTAINER := The LineageOS Project
 
 # Lenient flags for minimal build system
 BUILD_BROKEN_DUP_RULES := true
