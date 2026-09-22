@@ -80,6 +80,9 @@ jobs:
           export TARGET_DEVICE=udon
           export LC_ALL="C"
           
+          echo "=== Patching rsync in build system for Virtual A/B vendor symlinks ==="
+          sed -i 's/rsync -a --exclude=sdcard/rsync -a -K --keep-dirlinks --exclude=vendor --exclude=sdcard/g' build/make/core/Makefile || true
+
           echo "=== Sourcing envsetup.sh ==="
           source build/envsetup.sh
           
